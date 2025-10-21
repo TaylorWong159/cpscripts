@@ -1,0 +1,28 @@
+#!/bin/bash
+C="\033[0m"
+AC="\033[1;32mAC$C"
+RTE="\033[1;31mRTE$C"
+WA="\033[1;31mWA$C"
+TIMEFORMAT="%Es"
+v() { echo -e "$1 ($(cat $c.t))\n\033[31m$2$C"; }
+
+f=${1:-$(ls *.cpp *.py -t | head -n 1)}
+if [[ $f == *.py ]]; then
+    r="pypy3 $f"
+else
+    g++ -g -O2 -o a.o -std=gnu++23 -static -Wall $f || exit 1
+    r=./a.o
+fi
+echo "Running $f:"
+for i in data/*.in; do
+    echo -n "--- $i "
+    c=${i::-3}
+    ( time { $r < $i > $c.o 2> $c.e; } 2>> $c.e ) 2> $c.t
+    if [ -s $c.e ]; then
+        v $RTE "$(cat $c.e)"
+    elif diff -y -W 50 -Z $c.o $c.ans > $c.d; then
+        v $AC
+    else
+        v $WA "$(cat $c.d)"
+    fi
+done
