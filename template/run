@@ -8,16 +8,10 @@ v() {
 }
 
 f=${1:-$(ls *.cpp *.py -t | head -n 1)}
-if [[ $f == *.py ]]; then
-    r="pypy3 $f"
-else
-    g++ -std=gnu++23 -static $f || exit 1
-    r=./a.out
-fi
 echo "Running $f:"
 for i in data/*.in; do
     echo -n "--- $i "
-    ( time { $r < $i > o 2> e; } 2>> e ) 2> t
+    ( time { pypy3 $f < $i > o 2> e; } 2>> e ) 2> t
     if [ -s e ]; then
         v $RTE "$(cat e)"
     elif diff -yZW 50 o ${i::-3}.ans > d; then
