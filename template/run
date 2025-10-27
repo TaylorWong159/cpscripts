@@ -1,10 +1,11 @@
-#!/bin/bash
 C="\033[0m"
 AC="\033[1;32mAC$C"
 RTE="\033[1;31mRTE$C"
 WA="\033[1;31mWA$C"
 TIMEFORMAT="%Es"
-v() { echo -e "$1 ($(cat $c.t))\n\033[31m$2$C"; }
+v() {
+    echo -e "$1 ($(cat t))\n\033[31m$2$C"
+}
 
 f=${1:-$(ls *.cpp *.py -t | head -n 1)}
 if [[ $f == *.py ]]; then
@@ -16,13 +17,13 @@ fi
 echo "Running $f:"
 for i in data/*.in; do
     echo -n "--- $i "
-    c=${i::-3}
-    ( time { $r < $i > $c.o 2> $c.e; } 2>> $c.e ) 2> $c.t
-    if [ -s $c.e ]; then
-        v $RTE "$(cat $c.e)"
-    elif diff -y -W 50 -Z $c.o $c.ans > $c.d; then
+    ( time { $r < $i > o 2> e; } 2>> e ) 2> t
+    if [ -s e ]; then
+        v $RTE "$(cat e)"
+    elif diff -yZW 50 o ${i::-3}.ans > d; then
         v $AC
     else
-        v $WA "$(cat $c.d)"
+        v $WA "$(cat d)"
     fi
+    rm o e d t
 done

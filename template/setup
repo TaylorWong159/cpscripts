@@ -1,4 +1,3 @@
-#!/bin/bash
 PATH=$PATH:$(pwd)
 echo PATH=$PATH | tee -a ~/.bash_profile ~/.bashrc
 chmod +x run
