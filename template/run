@@ -25,5 +25,5 @@ for i in data/*.in; do
     else
         v $WA "$(cat d)"
     fi
-    rm o e d t
+    rm o e t d 2> /dev/null
 done
