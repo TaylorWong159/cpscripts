@@ -5,7 +5,6 @@ chmod +x run
 for i in ./*.zip $@; do
     p=${i%.zip}
     mkdir -p $p/data
-    cp -n t.cpp $p/$p.cpp
     cp -n t.py $p/$p.py
     unzip -nq $i -d $p/data
 done

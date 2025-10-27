@@ -8,16 +8,18 @@ v() {
 }
 
 f=$(ls *.py -t | head -n 1)
-echo "Running $f:"
-for i in data/*.in; do
-    echo -n "--- $i "
-    ( time { pypy3 $f < $i > o 2> e; } 2>> e ) 2> t
-    if [ -s e ]; then
-        v $RTE "$(cat e)"
-    elif diff -yZW 50 o ${i::-3}.ans > d; then
-        v $AC
-    else
-        v $WA "$(cat d)"
-    fi
+if [ $f ]; then
+    echo "Running $f:"
+    for i in data/*.in; do
+        echo -n "--- $i "
+        (time pypy3 $f < $i > o 2> e) 2> t
+        if [ -s e ]; then
+            v $RTE "$(cat e)"
+        elif diff -yZW 50 o ${i%.in}.ans > d; then
+            v $AC
+        else
+            v $WA "$(cat d)"
+        fi
+    done
     rm o e t d 2> /dev/null
-done
+fi
