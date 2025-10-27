@@ -7,7 +7,7 @@ v() {
     echo -e "$1 ($(cat t))\n\033[31m$2$C"
 }
 
-f=${1:-$(ls *.cpp *.py -t | head -n 1)}
+f=$(ls *.py -t | head -n 1)
 echo "Running $f:"
 for i in data/*.in; do
     echo -n "--- $i "
