@@ -1,8 +1,4 @@
-FROM ubuntu:latest
-
-
-RUN apt-get update && apt-get install -y g++ pypy3 unzip
-
+FROM problemtools/icpc:latest
 
 RUN mkdir -m 777 /workspace
 WORKDIR /workspace
