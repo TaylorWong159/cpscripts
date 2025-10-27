@@ -1,4 +1,4 @@
-from math import *
+import math
 import sys
 
 sys.setrecursionlimit(10 ** 9)
