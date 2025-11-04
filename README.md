@@ -28,16 +28,22 @@ docker run --rm -it -v <directory>:/workspace cpscripts
 cp /template/* .
 chmod +x setup
 . setup
-chmod +x run
 cd <problem>
 # solve problem
 run
 ```
 
 ## Hashes
-Hashes computed using 
+Hashes computed using
+```bash
+cat <file> | grep . | md5sum | cut -c-6
+```
+for no empty lines and
 ```bash
 cat <file> | tr -d '[:space:]' | md5sum | cut -c-6
 ```
-- setup: f0c07e
-- run: be10d0
+for no whitespace
+
+| File  | No Empty Lines Hash | No Whitespace Hash |
+| setup |        f0c07e       |       1b8b1a       |
+| run   |        cb6072       |       be10d0       |
