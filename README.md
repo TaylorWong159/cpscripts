@@ -33,3 +33,11 @@ cd <problem>
 # solve problem
 run
 ```
+
+## Hashes
+Hashes computed using 
+```bash
+cat <file> | tr -d '[:space:]' | md5sum | cut -c-6
+```
+- setup: f0c07e
+- run: be10d0
