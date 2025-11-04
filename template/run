@@ -1,7 +1,7 @@
 C="\033[0m"
 AC="\033[1;32mAC$C"
-RTE="\033[1;31mRTE$C"
 WA="\033[1;31mWA$C"
+RTE="\033[1;31mRTE$C"
 TIMEFORMAT="%Es"
 v() {
     echo -e "$1 ($(cat t))\n\033[31m$2$C"
