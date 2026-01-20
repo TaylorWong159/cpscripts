@@ -20,7 +20,7 @@ for i in data/*.in; do
     ( time { $r < $i > o 2> e; } 2>> e ) 2> t
     if [ -s e ]; then
         v $RTE "$(cat e)"
-    elif diff -yZW 50 o ${i::-3}.ans > d; then
+    elif diff -yZW 50 o ${i%.in}.ans > d; then
         v $AC
     else
         v $WA "$(cat d)"
